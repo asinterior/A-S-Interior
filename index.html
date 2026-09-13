@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A S Interior - Complete Home Design Solutions">
+    <title>A S Interior - Premium Portfolio</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Playfair+Display:ital,wght@0,600;1,700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ================= BASIC RESET ================= */
+        body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; background-color: #f0f2f5; color: #2d3436; }
+        
+        /* ================= ULTRA-PREMIUM HERO HEADER (Height Reduced) ================= */
+        .top-nav {
+            background-color: #111;
+            color: #d4af37; /* Royal Gold */
+            padding: 10px 5%;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85em;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        header {
+            background: linear-gradient(135deg, rgba(20, 30, 48, 0.95), rgba(36, 59, 85, 0.95)), url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=80') center/cover;
+            padding: 40px 20px; /* HEIGHT REDUCED HERE */
+            text-align: center;
+            border-bottom: 4px solid #d4af37;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5em; /* Font size slightly adjusted for balance */
+            margin: 0;
+            color: #ffffff;
+            letter-spacing: 4px;
+            text-shadow: 2px 4px 10px rgba(0,0,0,0.5);
+        }
+        
+        header h1 span { color: #d4af37; }
+        header p { color: #ecf0f1; font-weight: 300; font-size: 1.1em; letter-spacing: 2px; margin-top: 10px; text-transform: uppercase;}
+        
+        @media(max-width: 768px) {
+            .top-nav { flex-direction: column; text-align: center; gap: 8px; }
+            header { padding: 30px 20px; }
+            header h1 { font-size: 2.5em; }
+        }
+
+        /* ================= LAYOUT & GRIDS ================= */
+        .container { max-width: 1250px; margin: 40px auto; padding: 20px; }
+        .section-title { text-align: center; color: #111; font-size: 2.5em; margin-bottom: 40px; font-family: 'Playfair Display', serif; position: relative;}
+        .section-title::after { content: ''; width: 80px; height: 4px; background-color: #d4af37; display: block; margin: 15px auto 0; }
+        
+        .product-grid { display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; }
+        
+        /* ================= CARD DESIGN ================= */
+        .product-card {
+            background: white; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+            width: 320px; padding: 15px; text-align: center; transition: all 0.4s ease; cursor: pointer; border: 1px solid #e1e8ed;
+            position: relative; overflow: hidden;
+        }
+        .product-card:hover { transform: translateY(-12px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); border-color: #d4af37; }
+        .product-card img { width: 100%; height: 240px; object-fit: cover; border-radius: 8px; background-color: #e0e0e0; transition: 0.4s;}
+        .product-card:hover img { filter: brightness(0.9); }
+        .product-card h3 { color: #111; margin: 20px 0 10px; font-size: 1.4em; font-weight: 700;}
+        .product-card p { color: #636e72; font-size: 0.9em; margin-bottom: 20px; line-height: 1.5;}
+        
+        .view-btn { background: #2d3436; color: #fff; padding: 12px 25px; border-radius: 30px; font-size: 0.85em; font-weight: 600; display: inline-block; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;}
+        .product-card:hover .view-btn { background: #d4af37; color: #111;}
+
+        /* MAIN BACK BUTTON */
+        .back-btn { background-color: #111; color: #d4af37; border: 1px solid #d4af37; padding: 12px 25px; border-radius: 30px; cursor: pointer; font-size: 14px; margin-bottom: 40px; display: inline-flex; align-items: center; gap: 8px; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;}
+        .back-btn:hover { background-color: #d4af37; color: #111; }
+        .hidden { display: none; }
+        
+        /* ================= ADVANCED MODAL (POPUP) ================= */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.9); overflow-y: auto; padding-top: 20px; }
+        .modal-content { background-color: #fff; margin: 2% auto 5% auto; padding: 40px; border-radius: 15px; width: 95%; max-width: 1200px; position: relative; box-shadow: 0 15px 50px rgba(0,0,0,0.6);}
+        
+        /* MODAL BACK & CLOSE BUTTONS */
+        .modal-controls { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f1f2f6; padding-bottom: 20px; margin-bottom: 25px; }
+        .modal-back-btn { background-color: #f1f2f6; color: #111; border: none; padding: 10px 20px; border-radius: 30px; font-weight: 600; cursor: pointer; transition: 0.3s; font-size: 0.9em; display: flex; align-items: center; gap: 6px; }
+        .modal-back-btn:hover { background-color: #111; color: #d4af37; }
+        .close-btn { color: #b2bec3; font-size: 40px; font-weight: 300; cursor: pointer; transition: 0.2s; line-height: 1;}
+        .close-btn:hover { color: #d63031; transform: rotate(90deg);}
+        
+        .modal-header h2 { margin: 0; color: #111; font-family: 'Playfair Display', serif; font-size: 2.5em;}
+        .modal-header p { color: #636e72; font-size: 1.1em; margin-top: 10px; line-height: 1.6;}
+        
+        /* IMAGE GALLERY GRID */
+        .modal-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; margin-top: 20px; }
+        .modal-gallery img { width: 100%; height: 300px; object-fit: cover; border-radius: 10px; border: 1px solid #dfe6e9; transition: 0.3s; }
+        .modal-gallery img:hover { transform: scale(1.03); box-shadow: 0 10px 25px rgba(0,0,0,0.2); border-color: #d4af37;}
+        
+        /* PDF DOWNLOAD SECTION */
+        .pdf-section { margin-top: 40px; background: #f8f9fa; padding: 30px; border-radius: 12px; border: 1px solid #e9ecef;}
+        .pdf-section h3 { color: #2d3436; margin-bottom: 25px; font-size: 1.4em; border-bottom: 2px solid #d4af37; padding-bottom: 10px; display: inline-block;}
+        .pdf-container { display: flex; flex-wrap: wrap; gap: 12px; }
+        .pdf-btn { background-color: #fff; color: #d63031; padding: 12px 20px; text-decoration: none; border-radius: 6px; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: 0.3s; font-size: 0.9em; border: 1px solid #d63031;}
+        .pdf-btn:hover { background-color: #d63031; color: #fff; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(214, 48, 49, 0.3);}
+        
+        /* WHATSAPP BUTTON */
+        .modal-wa-btn { background-color: #25D366; color: white; border: none; padding: 20px 40px; border-radius: 50px; cursor: pointer; font-size: 1.1em; font-weight: 700; display: block; margin: 50px auto 10px auto; width: 100%; max-width: 450px; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);}
+        .modal-wa-btn:hover { background-color: #128C7E; transform: translateY(-5px);}
+        
+        footer { background-color: #111; color: #b2bec3; text-align: center; padding: 40px; margin-top: 60px; font-size: 0.9em; border-top: 4px solid #d4af37;}
+    </style>
+</head>
+<body>
+
+    <!-- ================= ULTRA-MODERN HEADER ================= -->
+    <div class="top-nav">
+        <span>📍 R.B Road, Dalsingsarai</span>
+        <span>📞 +91 9958930394</span>
+    </div>
+    
+    <header>
+        <h1>A S Interior<span>.</span></h1>
+        <p>Designing Dreams, Building Reality</p>
+    </header>
+
+    <div class="container">
+        
+        <!-- ================= 1. MAIN DASHBOARD ================= -->
+        <div id="home-section" class="section">
+            <h2 class="section-title">Explore Our Portfolio</h2>
+            <div class="product-grid">
+                
+                <div class="product-card" onclick="showSection('living-room-categories')">
+                    <img src="living-room-main.jpeg" onerror="this.src='https://picsum.photos/id/1015/600/400'">
+                    <h3>Living Room</h3>
+                    <p>TV Units, Sofas, Partitions</p>
+                </div>
+                
+                <div class="product-card" onclick="showSection('bedroom-categories')">
+                    <img src="bedroom-main.jpeg" onerror="this.src='https://picsum.photos/id/1018/600/400'">
+                    <h3>Bedroom</h3>
+                    <p>Wardrobes, Beds, Dressers</p>
+                </div>
+
+                <div class="product-card" onclick="showSection('kitchen-categories')">
+                    <img src="kitchen-main.jpeg" onerror="this.src='https://picsum.photos/id/102/600/400'">
+                    <h3>Modular Kitchen</h3>
+                    <p>Cabinets, Islands, Pantry</p>
+                </div>
+
+                <!-- NEW CATEGORY: CEILINGS & POP -->
+                <div class="product-card" onclick="showSection('ceiling-categories')">
+                    <img src="ceiling-main.jpeg" onerror="this.src='https://picsum.photos/id/103/600/400'">
+                    <h3>Ceilings & POP</h3>
+                    <p>False Ceilings, Lighting Layouts</p>
+                </div>
+
+                <!-- NEW CATEGORY: MASTER LAYOUTS & ELEVATIONS -->
+                <div class="product-card" onclick="showSection('layouts-categories')">
+                    <img src="https://picsum.photos/id/2/600/400" alt="Layouts">
+                    <h3>Master Layouts & Elevations</h3>
+                    <p>Complete Floor Plans, Furniture Details</p>
+                </div>
+
+                <div class="product-card" onclick="showSection('bathroom-commercial-categories')">
+                    <img src="https://picsum.photos/id/3/600/400" alt="Commercial">
+                    <h3>Bathroom, Doors & Commercial</h3>
+                    <p>Toilets, Reception, Salon Plans</p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ================= 2. LIVING ROOM ================= -->
+        <div id="living-room-categories" class="section hidden">
+            <button class="back-btn" onclick="showSection('home-section')">⬅ Back to Main Menu</button>
+            <h2 class="section-title">Living Room Projects</h2>
+            <div class="product-grid">
+                
+                <div class="product-card" onclick="openProject(
+                    'Living Room Layouts & Models', 
+                    'Complete general layout plans and 3D models for living areas.', 
+                    'living-room-main.jpeg', 
+                    'LIVING AREA GROUND FLOOR.pdf, LIVING ROOM 3RD FLOOR.pdf, Assam updated 3 T.D FLOOR LIVINNG ROOM pdf (1).pdf, Assam updated 3 T.D FLOOR LIVINNG ROOM pdf.pdf, Assam updated Ground floor Livinng room -Model.pdf'
+                )">
+                    <img src="living-room-main.jpeg" onerror="this.src='https://picsum.photos/id/1015/600/400'">
+                    <h3>Living Area Plans</h3>
+                    <span class="view-btn">View Drawings</span>
+                </div>
+
+                <div class="product-card" onclick="openProject(
+                    'TV Panel Designs & CNC Walls', 
+                    'Detailed TV unit layouts and CNC wall cuttings.', 
+                    'tv1-photo.jpeg, tv1-drawing.jpeg, tv-panels-main.jpeg', 
+                    'Anil ji ff bedroom 2 tv panel.pdf, Assam updated 2 N.D FLOOR TV WALL CNC (1).pdf, Assam updated 2 N.D FLOOR TV WALL CNC.pdf'
+                )">
+                    <img src="tv-panels-main.jpeg" onerror="this.src='https://picsum.photos/id/10/600/400'">
+                    <h3>TV Panels</h3>
+                    <span class="view-btn">View Drawings</span>
+                </div>
+
+                <div class="product-card" onclick="openProject(
+                    'Partitions & CNC Wall Models', 
+                    'Intricate partition designs and CNC wall models for halls.', 
+                    '', 
+                    'Assam updated 1 S.T FLOOR CNC WALL-Model.pdf, Assam updated 2 ND FLOOR CNC WALL.pdf, Assam updated Ground floor CNC WALL.pdf, Assam updated Wall Cnc Model.pdf'
+                )">
+                    <img src="https://picsum.photos/id/12/600/400" alt="Partitions">
+                    <h3>Partitions & CNC</h3>
+                    <span class="view-btn">View Drawings</span>
+                </div>
+
+                <div class="product-card" onclick="openProject('Premium Sofas', 'Sofa and seating layouts.', 'sofa-main.jpeg', '')">
+                    <img src="sofa-main.jpeg" onerror="this.src='https://picsum.photos/id/11/600/400'">
+                    <h3>Sofa Sets</h3>
+                    <span class="view-btn">View Gallery</span>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ================= 3. BEDROOM ================= -->
+        <div id="bedroom-categories" class="section hidden">
+            <button class="back-btn" onclick="showSection('home-section')">⬅ Back to Main Menu</button>
+            <h2 class="section-title">Bedroom Projects</h2>
+            <div class="product-grid">
+                
+                <div class="product-card" onclick="openProject(
+                    'Master & Guest Bedroom Plans', 
+                    'Wall paneling, dressing walls, and complete bedroom models.', 
+                    'bed1-photo.jpeg, bed1-drawing.jpeg, bed-main.jpeg', 
+                    'anil ji ff bedroom 2 bed wall panel (1).pdf, anil ji ff bedroom 2 bed wall panel.pdf, anilji ff bedroom 2 dressing wall.pdf, Assam updated 1 S.T FLOOR BED ROOM-Model (1).pdf, Assam updated 1 S.T FLOOR BED ROOM-Model.pdf, Assam updated 2 N.D FLOOR BED ROOM.pdf, Assam updated 3 T.D FLOOR BED ROOM CNC WALL (1).pdf, Assam updated 3 T.D FLOOR BED ROOM CNC WALL.pdf, Assam updated 3 T.D FLOOR BED ROOM pdf.pdf, DALSHING SARAI 2 ND FLOOR 4 BED ROOM.pdf, GUEST ROOM 2ND FLOOR.pdf, GUEST ROOM GROUND FLOOR.pdf'
+                )">
+                    <img src="bed-main.jpeg" onerror="this.src='https://picsum.photos/id/43/600/400'">
+                    <h3>Beds & Room Plans</h3>
+                    <span class="view-btn">View 12+ Drawings</span>
+                </div>
+
+                <div class="product-card" onclick="openProject(
+                    'Wardrobes & Walk-in Closets', 
+                    'Detailed interior layouts for walk-in closets and sliding wardrobes.', 
+                    'wardrobe1-photo.jpeg, wardrobe1-drawing.jpeg, wardrobe-main.jpeg', 
+                    'Assam updated 1 S.T FLOOR WALKING CLOSET-Model (1).pdf, Assam updated 1 S.T FLOOR WALKING CLOSET-Model.pdf, Assam updated 2 N.D FLOOR WALKING CLOSET-Model (1).pdf, Assam updated 2 N.D FLOOR WALKING CLOSET-Model.pdf, Assam updated 3 T.D FLOOR WALKING CLOSET MODEL.pdf, Assam updated1 S.T Floor Walkin closeet -Model.pdf, Assam updated2 N.D Floor Walkin closeet -Model.pdf'
+                )">
+                    <img src="wardrobe-main.jpeg" onerror="this.src='https://picsum.photos/id/40/600/400'">
+                    <h3>Wardrobes & Closets</h3>
+                    <span class="view-btn">View 7+ Drawings</span>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ================= 4. KITCHEN ================= -->
+        <div id="kitchen-categories" class="section hidden">
+            <button class="back-btn" onclick="showSection('home-section')">⬅ Back to Main Menu</button>
+            <h2 class="section-title">Modular Kitchens</h2>
+            <div class="product-grid">
+                
+                <div class="product-card" onclick="openProject(
+                    'Kitchen Layouts & Plans', 
+                    'Ground floor and general kitchen layouts.', 
+                    'kitchen-main.jpeg, cabinet-main.jpeg', 
+                    'KITCHEN GROUND FLOOR (1).pdf, KITCHEN GROUND FLOOR.pdf, Assam updated KITCHAN PLAN (1).pdf, Assam updated KITCHAN PLAN.pdf'
+                )">
+                    <img src="kitchen-main.jpeg" onerror="this.src='https://picsum.photos/id/31/600/400'">
+                    <h3>Kitchen Layouts</h3>
+                    <span class="view-btn">View Drawings</span>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ================= 5. CEILINGS & POP ================= -->
+        <div id="ceiling-categories" class="section hidden">
+            <button class="back-btn" onclick="showSection('home-section')">⬅ Back to Main Menu</button>
+            <h2 class="section-title">Ceilings & POP Details</h2>
+            <div class="product-grid">
+                
+                <div class="product-card" onclick="openProject(
+                    'False Ceiling & POP Layouts', 
+                    'Lighting layouts, non-veg kitchen ceilings, and room POP designs.', 
+                    'ceiling-main.jpeg', 
+                    '03 - Ceiling Lighting Layout.pdf, 20230114_RAJESH JI _NON-VEG KITCHEN_FALSE CEILING DRAWING _BEGUSARAI 3.pdf, Assam updated POP 1 S.T FLOOR.pdf, Assam updated POP 2 N.D FLOOR.pdf, Assam updated pop Ground floor.pdf, HOMEXPERIA_CEILING PLAN.pdf, HOMEXPERIA_HANGING CEILING DETAIL.pdf, salon ceiling plan.pdf'
+                )">
+                    <img src="ceiling-main.jpeg" onerror="this.src='https://picsum.photos/id/103/600/400'">
+                    <h3>Ceiling & POP Plans</h3>
+                    <span class="view-btn">View 8+ Drawings</span>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ================= 6. MASTER LAYOUTS, ELEVATIONS & FURNITURE ================= -->
+        <div id="layouts-categories" class="section hidden">
+            <button class="back-btn" onclick="showSection('home-section')">⬅ Back to Main Menu</button>
+            <h2 class="section-title">Master Layouts & Furniture Details</h2>
+            <div class="product-grid">
+                
+                <div class="product-card" onclick="openProject(
+                    'Complete Floor & Furniture Layouts', 
+                    'Detailed furniture layouts for ground, first, second, and top floors.', 
+                    'table-main.jpeg', 
+                    'Assam updated (3)-Model.pdf000000000.pdf, diamond plan-2.pdf, First Floor - Furniture layout (1).pdf, First Floor - Furniture layout.pdf, Floor Plan With Furniture layout.pdf, Ground Floor - Furniture layout (1).pdf, Ground Floor - Furniture layout.pdf, S.Floor Furniture Layout.pdf, T.Floor Furniture Layout (1).pdf, T.Floor Furniture Layout.pdf, HOMEX_FLOORING LAYOUT AND TILE QTY_24_07_2024.pdf'
+                )">
+                    <img src="https://picsum.photos/id/2/600/400" alt="Layouts">
+                    <h3>Floor & Furniture Layouts</h3>
+                    <span class="view-btn">View 11+ Drawings</span>
+                </div>
+
+                <div class="product-card" onclick="openProject(
+                    'Elevations & Furniture Detailing', 
+                    'In-depth Homexperia furniture detailing and elevation plans.', 
+                    '', 
+                    'HOMEXPERIA_ELEVATION-1 & 3.pdf, HOMEXPERIA_ELEVATION-2- 4.pdf, HOMEXPERIA_FURNITURE DETAIL-2.pdf, HOMEXPERIA_FURNITURE DETAIL-3.pdf, HOMEXPERIA_FURNITURE DETAIL-4.pdf, HOMEXPERIA_FURNITURE DETAIL-5.pdf, HOMEXPERIA_FURNITURE DETAIL-6.pdf, HOMEXPERIA_FURNITURE DETAIL-7.pdf, HOMEXPERIA_FURNITURE DETAIL-8.pdf'
+                )">
+                    <img src="https://picsum.photos/id/201/600/400" alt="Details">
+                    <h3>Elevations & Detailing</h3>
+                    <span class="view-btn">View 9+ Drawings</span>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ================= 7. BATHROOM, DOORS & COMMERCIAL ================= -->
+        <div id="bathroom-commercial-categories" class="section hidden">
+            <button class="back-btn" onclick="showSection('home-section')">⬅ Back to Main Menu</button>
+            <h2 class="section-title">Misc. Projects & Commercial</h2>
+            <div class="product-grid">
+                
+                <div class="product-card" onclick="openProject(
+                    'Main Doors & Galleries', 
+                    'Main door details and gallery models.', 
+                    'Doordrawing1.jpeg', 
+                    'Assam updated GROUND FLOOR MAIN DOOR.pdf, Assam updated Ground floor gallery plan.pdf, Assam updated Ground foor Gallery Model.pdf'
+                )">
+                    <img src="Doordrawing1.jpeg" onerror="this.src='https://picsum.photos/id/1033/600/400'">
+                    <h3>Doors & Foyer</h3>
+                    <span class="view-btn">View Drawings</span>
+                </div>
+
+                <div class="product-card" onclick="openProject(
+                    'Bathroom & Toilet Plans', 
+                    'Ground and 3rd floor toilet layouts.', 
+                    '', 
+                    'TOILET 3RD FLOOR.pdf, TOILET GROUND FLOOR.pdf'
+                )">
+                    <img src="https://picsum.photos/id/251/600/400" alt="Bathroom">
+                    <h3>Bathrooms</h3>
+                    <span class="view-btn">View Drawings</span>
+                </div>
+
+                <div class="product-card" onclick="openProject(
+                    'Commercial: Reception & Salon', 
+                    'Reception counter details and salon electrical plans.', 
+                    '', 
+                    'HOMEXPERIA_RECEPTION COUNTER (1).pdf, HOMEXPERIA_RECEPTION COUNTER.pdf, salon electrical plan.pdf'
+                )">
+                    <img src="https://picsum.photos/id/3/600/400" alt="Commercial">
+                    <h3>Commercial Spaces</h3>
+                    <span class="view-btn">View Drawings</span>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ================= POPUP MODAL (Photos & PDF Engine) ================= -->
+    <div id="designModal" class="modal">
+        <div class="modal-content">
+            
+            <!-- NEW MODAL BACK BUTTON -->
+            <div class="modal-controls">
+                <button class="modal-back-btn" onclick="closeModal()">⬅ Back to List</button>
+                <span class="close-btn" onclick="closeModal()">&times;</span>
+            </div>
+
+            <div class="modal-header">
+                <h2 id="modal-title">Design Name</h2>
+                <p id="modal-desc">Design description goes here...</p>
+            </div>
+            
+            <div id="modal-gallery" class="modal-gallery">
+                <!-- JavaScript automatically puts unlimited images here -->
+            </div>
+
+            <div id="modal-pdfs" class="pdf-section hidden">
+                <h3>📁 Technical Documents & Drawings</h3>
+                <div id="pdf-container" class="pdf-container">
+                    <!-- JavaScript automatically puts unlimited PDFs here -->
+                </div>
+            </div>
+
+            <button class="modal-wa-btn" id="waBtn">Connect on WhatsApp</button>
+        </div>
+    </div>
+
+    <footer>
+        <p><strong>A S Interior</strong> - Delivering Excellence in Every Space</p>
+        <p>&copy; 2026 All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function showSection(sectionId) {
+            var sections = document.getElementsByClassName('section');
+            for(var i = 0; i < sections.length; i++) { sections[i].classList.add('hidden'); }
+            document.getElementById(sectionId).classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function openProject(title, desc, imageString, pdfString) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-desc').innerText = desc;
+            
+            // Generate Images
+            let galleryHTML = '';
+            if(imageString) {
+                let images = imageString.split(','); 
+                for(let i = 0; i < images.length; i++) {
+                    let imgName = images[i].trim();
+                    if(imgName !== '') {
+                        galleryHTML += `<img src="${imgName}" onerror="this.src='https://via.placeholder.com/600?text=A+S+Interior'" alt="Project Image">`;
+                    }
+                }
+            }
+            document.getElementById('modal-gallery').innerHTML = galleryHTML;
+
+            // Generate PDFs
+            let pdfHTML = '';
+            let pdfSection = document.getElementById('modal-pdfs');
+            if(pdfString && pdfString.trim() !== '') {
+                let pdfs = pdfString.split(',');
+                for(let i = 0; i < pdfs.length; i++) {
+                    let pdfName = pdfs[i].trim();
+                    if(pdfName !== '') {
+                        let displayName = pdfName.length > 35 ? pdfName.substring(0, 32) + '...' : pdfName;
+                        pdfHTML += `<a href="${pdfName}" target="_blank" class="pdf-btn" title="${pdfName}">📄 ${displayName}</a>`;
+                    }
+                }
+                document.getElementById('pdf-container').innerHTML = pdfHTML;
+                pdfSection.classList.remove('hidden'); 
+            } else {
+                pdfSection.classList.add('hidden'); 
+            }
+            
+            // Set WhatsApp Link
+            document.getElementById('waBtn').onclick = function() {
+                var phoneNumber = "919958930394"; 
+                var message = "Hello A S Interior! I viewed the details of *" + title + "* on your website and want to discuss a project.";
+                var whatsappUrl = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(message);
+                window.open(whatsappUrl, "_blank");
+            };
+            
+            document.getElementById('designModal').style.display = 'block';
+        }
+
+        function closeModal() { document.getElementById('designModal').style.display = 'none'; }
+        window.onclick = function(event) { var modal = document.getElementById('designModal'); if (event.target == modal) { modal.style.display = "none"; } }
+    </script>
+</body>
+</html>
